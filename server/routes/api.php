@@ -7,7 +7,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 use App\Http\Controllers\ApiController;
-use App\Http\Controllers\AwesomeAPIController;
+use App\Http\Controllers\WalletController;
+use App\Http\Controllers\TransactionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,11 +30,16 @@ Route::post('register', [ApiController::class, 'register']);
 Route::prefix('auth')->group(function () {
     Route::post('login', [ApiController::class, 'login']);
     Route::post('logout', [ApiController::class, 'logout']);
-    Route::post('user', [ApiController::class, 'user']);
+    Route::get('user', [ApiController::class, 'user']);
 });
 
 Route::group(['middleware' => ['jwt.verify']], function () {
-    Route::get("schema", function () {
+    Route::resource('wallets', WalletController::class);
+
+    Route::post('withdraw', [TransactionController::class, 'withdraw']);
+    Route::post('deposit', [TransactionController::class, 'deposit']);
+
+    Route::get("config", function () {
         return response()->json([
             "timestamp" => now()
         ]);

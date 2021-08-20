@@ -52,6 +52,7 @@ class ApiController extends Controller
         ]);
 
         if ($validator->fails()) {
+            dd("👉1👈");
             return response()->json(['success' => false, 'error' => json_decode($validator->errors()->toJson())], 200)->setEncodingOptions(JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
         }
 
@@ -63,8 +64,7 @@ class ApiController extends Controller
                 ], 400);
             }
         } catch (JWTException $e) {
-            return $credentials;
-
+            dd("👉2👈");
             return response()->json([
                 'success' => false,
                 'message' => 'Could not create token.',
@@ -84,6 +84,7 @@ class ApiController extends Controller
         ]);
 
         if ($validator->fails()) {
+            dd("👉3👈");
             return response()->json(['error' => json_decode($validator->errors()->toJson())], 200)->setEncodingOptions(JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
         }
 
@@ -95,6 +96,7 @@ class ApiController extends Controller
                 'message' => 'User has been logged out'
             ])->setEncodingOptions(JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
         } catch (JWTException $exception) {
+            dd("👉4👈");
             return response()->json([
                 'success' => false,
                 'message' => 'Sorry, user cannot be logged out'
@@ -104,14 +106,17 @@ class ApiController extends Controller
 
     public function user(Request $request): JsonResponse
     {
+        dd("👉5👈");
         $validator = Validator::make($request->only('token'), [
             'token' => 'required'
         ]);
 
         if ($validator->fails()) {
+            dd("👉6👈");
             return response()->json(['error' => json_decode($validator->errors()->toJson())])->setEncodingOptions(JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
         }
 
+        dd("👉7👈");
         return response()->json(auth()->user())->setEncodingOptions(JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
     }
 }

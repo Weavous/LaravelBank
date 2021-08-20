@@ -98,7 +98,7 @@ class JWTAuthTest extends TestCase
             "password" => "anthonieta-password"
         ]);
 
-        $response = $this->get("api/schema", [
+        $response = $this->get("api/config", [
             "Authorization" => sprintf("Bearer %s", json_decode($response->getContent())->token)
         ]);
 
@@ -123,7 +123,7 @@ class JWTAuthTest extends TestCase
             "token" => json_decode($login->getContent())->token
         ]);
 
-        $resource = $this->get("api/schema", [
+        $resource = $this->get("api/config", [
             "Authorization" => sprintf("Bearer %s", json_decode($login->getContent())->token),
         ]);
 

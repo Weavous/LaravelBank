@@ -77,7 +77,7 @@
     CREATE DATABASE custom_development_bank;
 ```
 
-Next, add the following database configuration information
+<p align="center">Next, add the following database configuration information</p>
 
 ```txt
     DB_CONNECTION=mysql
@@ -96,6 +96,26 @@ Next, add the following database configuration information
 
 ```bash
     php artisan make:controller APIController
+
+    php artisan make:controller WalletController --api
+
+    php artisan make:controller TransactionController
+```
+
+<h6 align="center">Models</h6>
+
+```bash
+    php artisan make:model Transaction
+
+    php artisan make:model Wallet
+```
+
+<h6 align="center">Migrations</h6>
+
+```bash
+    php artisan make:migration create_wallets_table
+
+    php artisan make:migration create_transactions_table
 ```
 
 <h6 align="center">Seeders</h6>
@@ -108,6 +128,10 @@ Next, add the following database configuration information
 
 ```bash
     php artisan make:test JWTAuthTest
+
+    php artisan make:test WalletControllerTest
+
+    php artisan make:test TransactionControllerTest
 ```
 
 <span>Edit `backend\phpunit.xml`, setting `DB_CONNECTION` and `DB_DATABASE` values</span>
@@ -163,6 +187,36 @@ Next, add the following database configuration information
     }
 ```
 
+<h5 align="center">Noções básicas sobre o aplicativo</h5>
+
+<h6 align="center">Authentication</h6>
+
+`POST` `/api/registers` criará um novo registro de usuário
+
+`POST` `/api/auth/login` retornará um token de autorização para um usuário previamente cadastrado no sistema
+
+`POST` `/api/auth/logout` encerrará o token de autorização previamente criado para um usuário autenticado
+
+`GET` `/api/auth/user` retornará os dados de cadastro de um usuário
+
+<h6 align="center">Wallets</h6>
+
+`GET` `/api/wallets` retornará os dados da carteira do usuário
+
+`POST` `/api/wallets` criará uma carteira para um usuário
+
+`DELETE` `/api/wallets` excluirá a carteira do usuário
+
+`PUT` `/api/wallets` atualizará os dados da carteira do usuário
+
+`SHOW` `/api/wallets` retornará os dados da carteira do usuário
+
+<h6 align="center">Transactions</h6>
+
+`POST` `/api/wallets/withdraw` realizará uma retirada na carteira do usuário
+
+`POST` `/api/wallets/deposit` realizará um depósito na carteira do usuário
+ 
 <p align="center">4 folder structures to organize your React & React Native project <a href="https://reboot.studio/blog/folder-structures-to-organize-react-project">💾</a></p>
 
 <h6>⚠️ Atenção - Possívels Erros</h6>
