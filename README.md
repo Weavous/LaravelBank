@@ -178,6 +178,40 @@
     php artisan serve
 ```
 
+<h6 align="center">Run with Docker</h6>
+
+After doing the project setup, follow the steps.
+
+Clone o repositório https://github.com/Whopag/DockerPHPMySQL
+
+Copy the contents of `LaravelBank/server` to `DockerPHPMySQL/html`
+
+Inside `DockerPHPMySQL`, build an image of the project
+
+```bash
+    docker-compose up -d --build
+```
+
+Change the content of the following environment variables
+
+```bash
+    DB_HOST=dockerphpmysql_mysql_1
+    DB_PASSWORD=secret
+    DB_DATABASE=laravel
+```
+
+Run Laravel migrations
+
+```bash
+    docker-compose run --rm artisan migrate --seed
+```
+
+Create an Laravel application key
+
+```bash
+    docker-compose run --rm artisan key:generate
+```
+
 <h6 align="center">Testing User</h6>
 
 ```typescript
