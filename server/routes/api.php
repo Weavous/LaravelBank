@@ -1,7 +1,13 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
+
+use App\Http\Controllers\ApiController;
+use App\Http\Controllers\AwesomeAPIController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +20,22 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+Route::post('register', [ApiController::class, 'register']);
+
+Route::prefix('auth')->group(function () {
+    Route::post('login', [ApiController::class, 'login']);
+    Route::post('logout', [ApiController::class, 'logout']);
+    Route::post('user', [ApiController::class, 'user']);
+});
+
+Route::group(['middleware' => ['jwt.verify']], function () {
+    Route::get("schema", function () {
+        return response()->json([
+            "timestamp" => now()
+        ]);
+    });
 });

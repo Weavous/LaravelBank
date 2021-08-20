@@ -95,7 +95,7 @@ Next, add the following database configuration information
 <h6 align="center">Controllers</h6>
 
 ```bash
-    php artisan make:controller AwesomeAPIController
+    php artisan make:controller APIController
 ```
 
 <h6 align="center">Seeders</h6>
@@ -144,6 +144,10 @@ Next, add the following database configuration information
 
 ```bash
     php artisan migrate:fresh --seed
+```
+
+```bash
+    php artisan jwt:secret
 ```
 
 ```bash
